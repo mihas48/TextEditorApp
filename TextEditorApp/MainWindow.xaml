@@ -6,5 +6,55 @@
         xmlns:local="clr-namespace:TextEditorApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
+
+    <Window.Resources>
+        <Style x:Key="EditMode-ToggleButton">
+            <Setter Property="Control.BorderThickness" Value="0"/>
+            <Setter Property="Control.Margin" Value="20, 0, 0, 0"/>
+            <Setter Property="Control.BorderThickness" Value="0"/>
+            <Setter Property="Control.Background" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Background" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid RowDefinitions="auto, *" Background="LightGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="219*"/>
+            <ColumnDefinition Width="581*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Поле для выбора режима редактирования -->
+        <Border BorderBrush="DimGray" BorderThickness="2, 0, 2, 2" CornerRadius="5"
+                Padding="0, 5" Margin="20,0,20,392" Grid.ColumnSpan="2">
+            <Grid Grid.Row="0" HorizontalAlignment="Left">
+                <!-- Контейнер для ячеек -->
+                <Grid ColumnDefinitions="*, *, *">
+                    <ToggleButton Width="30" Height="30" Content="Ж" 
+                                  FontWeight="Bold" Cursor="Hand" 
+                                  Margin="20, 0, 0, 0" Grid.Column="0"
+                                  Style="{StaticResource EditMode-ToggleButton}"
+                                  />
+                    <ToggleButton Width="30" Height="30" Content="К" 
+                                  FontStyle="Italic" Cursor="Hand" 
+                                  Margin="20,0, 0, 0" Grid.Column="1"/>
+                    <ToggleButton Width="30" Height="30" 
+                                  Cursor="Hand" 
+                                  Margin="20,0, 0, 0" Grid.Column="2">
+                        <TextBlock Text="Ч" TextDecorations="Underline"/>
+                    </ToggleButton>
+
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Поле для текста -->
+        <Grid Grid.ColumnSpan="2" Margin="0,42,0,0">
+            <Border Margin="200, 10, 200, 0">
+                <RichTextBox />
+            </Border>
+        </Grid>
+    </Grid>
 </Window>
