@@ -16,6 +16,7 @@
             <Setter Property="Margin" Value="20, 0, 0, 0"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">
@@ -34,6 +35,8 @@
                             <Trigger Property="IsChecked" Value="True">
                                 <!-- Состояние при нажатии -->
                                 <Setter TargetName="Bd" Property="Background" Value="White"/>
+                                <Setter TargetName="Bd" Property="BorderThickness" Value="1, 1, 1, 1"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="Black"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -59,15 +62,52 @@
                               Click="ToggleButtonBold_Click"/>
                 <ToggleButton Content="К"
                               FontStyle="Italic"
-                              Style="{StaticResource EditMode-ToggleButton}" Click="ToggleButtonItalic_Click"/>
-                <ToggleButton Style="{StaticResource EditMode-ToggleButton}" Click="ToggleButtonUnderline_Click">
+                              Style="{StaticResource EditMode-ToggleButton}" 
+                              Click="ToggleButtonItalic_Click"/>
+                <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
+                              Click="ToggleButtonUnderline_Click">
                     <TextBlock Text="Ч" TextDecorations="Underline"/>
                 </ToggleButton>
+                <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
+                              Margin="45, 0, 0, 0"
+                              Click="ToggleButtonSubscript_Click"
+                              x:Name="togBtnSub">
+                    <TextBlock LineStackingStrategy="BlockLineHeight" >
+                        X<Run BaselineAlignment="Subscript" FontSize="8">2</Run>
+                    </TextBlock>
+                </ToggleButton>
+                <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
+                              Click="ToggleButtonSuperscript_Click"
+                              x:Name="togBtnSup">
+                    <TextBlock LineStackingStrategy="BlockLineHeight">
+                        X<Run BaselineAlignment="Superscript" FontSize="8">2</Run>
+                    </TextBlock>
+                </ToggleButton>
+                <ToggleButton Content="S" 
+                              Style="{StaticResource EditMode-ToggleButton}"
+                              Margin="45, 0, 0, 0"
+                              Click="ToggleButtonAlignmentStart_Click"
+                              x:Name="togBtnStart"
+                              />
+                <ToggleButton Content="C" 
+                              Style="{StaticResource EditMode-ToggleButton}"
+                              Click="ToggleButtonAlignmentCenter_Click"
+                              x:Name="togBtnCenter"
+                              />
+                <ToggleButton Content="E" 
+                              Style="{StaticResource EditMode-ToggleButton}"
+                              Click="ToggleButtonAlignmentEnd_Click"
+                              x:Name="togBtnEnd"
+                              />
+                <ToggleButton Content="J" 
+                              Style="{StaticResource EditMode-ToggleButton}"
+                              Click="ToggleButtonAlignmentJustify_Click"
+                              x:Name="togBtnJustify"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="1">
-            <RichTextBox x:Name="rtb"/>
+            <RichTextBox x:Name="rtb" SelectionChanged="RichTextBox_SelectionChanged"/>
         </Border>
     </Grid>
 </Window>
