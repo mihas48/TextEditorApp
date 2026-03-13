@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TextEditorApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Текстовый редактор" Height="450" Width="800">
 
     <Window.Resources>
         <!-- Описание стиля для кнопок выбора режима -->
@@ -50,25 +50,24 @@
 
         <Border Grid.Row="0" 
                 BorderBrush="DimGray" 
-                BorderThickness="2, 0, 2, 2" 
-                CornerRadius="5"
-                Padding="0, 5" 
-                Margin="20, 0, 20, 0">
+                BorderThickness="0, 0, 0, 2" 
+                Padding="0, 5">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <ToggleButton Content="Ж" 
                               FontWeight="Bold"
-                              Style="{StaticResource EditMode-ToggleButton}"/>
+                              Style="{StaticResource EditMode-ToggleButton}" 
+                              Click="ToggleButtonBold_Click"/>
                 <ToggleButton Content="К"
                               FontStyle="Italic"
-                              Style="{StaticResource EditMode-ToggleButton}"/>
-                <ToggleButton Style="{StaticResource EditMode-ToggleButton}">
+                              Style="{StaticResource EditMode-ToggleButton}" Click="ToggleButtonItalic_Click"/>
+                <ToggleButton Style="{StaticResource EditMode-ToggleButton}" Click="ToggleButtonUnderline_Click">
                     <TextBlock Text="Ч" TextDecorations="Underline"/>
                 </ToggleButton>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1" Margin="200, 10, 200, 10">
-            <RichTextBox />
+        <Border Grid.Row="1">
+            <RichTextBox x:Name="rtb"/>
         </Border>
     </Grid>
 </Window>
