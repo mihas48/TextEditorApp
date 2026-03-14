@@ -43,6 +43,38 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!-- Описание стиля для кнопок сохранения и загрузки -->
+        <Style x:Key="SaveLoad-Buttons" TargetType="Button">
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Margin" Value="20, 0, 0, 0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    CornerRadius="4"
+                    Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!-- Состояние при наведении курсора -->
+                                <Setter TargetName="Bd" Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
     </Window.Resources>
 
     <Grid Background="LightGray">
@@ -55,59 +87,81 @@
                 BorderBrush="DimGray" 
                 BorderThickness="0, 0, 0, 2" 
                 Padding="0, 5">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <ToggleButton Content="Ж" 
-                              FontWeight="Bold"
-                              Style="{StaticResource EditMode-ToggleButton}" 
-                              Click="ToggleButtonBold_Click"/>
-                <ToggleButton Content="К"
-                              FontStyle="Italic"
-                              Style="{StaticResource EditMode-ToggleButton}" 
-                              Click="ToggleButtonItalic_Click"/>
-                <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
-                              Click="ToggleButtonUnderline_Click">
-                    <TextBlock Text="Ч" TextDecorations="Underline"/>
-                </ToggleButton>
-                <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
-                              Margin="45, 0, 0, 0"
-                              Click="ToggleButtonSubscript_Click"
-                              x:Name="togBtnSub">
-                    <TextBlock LineStackingStrategy="BlockLineHeight" >
-                        X<Run BaselineAlignment="Subscript" FontSize="8">2</Run>
-                    </TextBlock>
-                </ToggleButton>
-                <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
-                              Click="ToggleButtonSuperscript_Click"
-                              x:Name="togBtnSup">
-                    <TextBlock LineStackingStrategy="BlockLineHeight">
-                        X<Run BaselineAlignment="Superscript" FontSize="8">2</Run>
-                    </TextBlock>
-                </ToggleButton>
-                <ToggleButton Content="S" 
-                              Style="{StaticResource EditMode-ToggleButton}"
-                              Margin="45, 0, 0, 0"
-                              Click="ToggleButtonAlignmentStart_Click"
-                              x:Name="togBtnStart"
-                              />
-                <ToggleButton Content="C" 
-                              Style="{StaticResource EditMode-ToggleButton}"
-                              Click="ToggleButtonAlignmentCenter_Click"
-                              x:Name="togBtnCenter"
-                              />
-                <ToggleButton Content="E" 
-                              Style="{StaticResource EditMode-ToggleButton}"
-                              Click="ToggleButtonAlignmentEnd_Click"
-                              x:Name="togBtnEnd"
-                              />
-                <ToggleButton Content="J" 
-                              Style="{StaticResource EditMode-ToggleButton}"
-                              Click="ToggleButtonAlignmentJustify_Click"
-                              x:Name="togBtnJustify"/>
-            </StackPanel>
+            <Grid ColumnDefinitions="*, Auto">
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Left" 
+                            Grid.Column="0">
+                    <ToggleButton Content="Ж" 
+                  FontWeight="Bold"
+                  Style="{StaticResource EditMode-ToggleButton}" 
+                  Click="ToggleButtonBold_Click"/>
+                    <ToggleButton Content="К"
+                  FontStyle="Italic"
+                  Style="{StaticResource EditMode-ToggleButton}" 
+                  Click="ToggleButtonItalic_Click"/>
+                    <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
+                  Click="ToggleButtonUnderline_Click">
+                        <TextBlock Text="Ч" TextDecorations="Underline"/>
+                    </ToggleButton>
+                    <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
+                  Margin="45, 0, 0, 0"
+                  Click="ToggleButtonSubscript_Click"
+                  x:Name="togBtnSub">
+                        <TextBlock LineStackingStrategy="BlockLineHeight" >
+            X<Run BaselineAlignment="Subscript" FontSize="8">2</Run>
+                        </TextBlock>
+                    </ToggleButton>
+                    <ToggleButton Style="{StaticResource EditMode-ToggleButton}" 
+                  Click="ToggleButtonSuperscript_Click"
+                  x:Name="togBtnSup">
+                        <TextBlock LineStackingStrategy="BlockLineHeight">
+            X<Run BaselineAlignment="Superscript" FontSize="8">2</Run>
+                        </TextBlock>
+                    </ToggleButton>
+                    <ToggleButton Content="S" 
+                  Style="{StaticResource EditMode-ToggleButton}"
+                  Margin="45, 0, 0, 0"
+                  Click="ToggleButtonAlignmentStart_Click"
+                  x:Name="togBtnStart"
+                  />
+                    <ToggleButton Content="C" 
+                  Style="{StaticResource EditMode-ToggleButton}"
+                  Click="ToggleButtonAlignmentCenter_Click"
+                  x:Name="togBtnCenter"
+                  />
+                    <ToggleButton Content="E" 
+                  Style="{StaticResource EditMode-ToggleButton}"
+                  Click="ToggleButtonAlignmentEnd_Click"
+                  x:Name="togBtnEnd"
+                  />
+                    <ToggleButton Content="J" 
+                  Style="{StaticResource EditMode-ToggleButton}"
+                  Click="ToggleButtonAlignmentJustify_Click"
+                  x:Name="togBtnJustify"/>
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Grid.Column="1"
+                    Margin="0, 0, 20, 0">
+                    <Button Style="{StaticResource SaveLoad-Buttons}"
+                    HorizontalAlignment="Right"
+                    Content="Сохранить" 
+                    Click="ButtonSaveFile_Click"
+                    />
+                    <Button Style="{StaticResource SaveLoad-Buttons}"
+                    HorizontalAlignment="Right"
+                    Content="Открыть"
+                    Click="ButtonOpenFile_Click"
+                    />
+                </StackPanel>
+            </Grid>
         </Border>
 
         <Border Grid.Row="1">
-            <RichTextBox x:Name="rtb" SelectionChanged="RichTextBox_SelectionChanged"/>
+            <RichTextBox x:Name="rtb" 
+                         SelectionChanged="RichTextBox_SelectionChanged"
+                         />
         </Border>
     </Grid>
 </Window>

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Microsoft.Win32;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 
@@ -7,8 +9,10 @@ namespace TextEditorApp
     public partial class MainWindow : Window
     {
         private List<ToggleButton> alignmentButtons;
+
         public MainWindow()
         {
+
             InitializeComponent();
             alignmentButtons = new List<ToggleButton> {
             togBtnStart,
@@ -155,6 +159,66 @@ namespace TextEditorApp
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void ButtonSaveFile_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "RTF файлы (*.rtf)|*.rtf";
+
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string filename = saveFileDialog.FileName;
+                    using (FileStream fs = new FileStream(filename, FileMode.Create))
+                    {
+                        TextRange textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+                        textRange.Save(fs, DataFormats.Rtf);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при сохранении: {ex.Message}");
+                }
+            }
+        }
+
+        private void ButtonOpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (rtb.Document.ContentStart != rtb.Document.ContentEnd)
+            {
+                MessageBoxResult result = MessageBox.Show("Открыв другой файл, Вы потеряте исходные данные. Вы уверены?",
+                "Сообщение",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Information
+                );
+                if (result == MessageBoxResult.No)
+                    return;
+                else
+                {
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    openFileDialog.Filter = "RTF файлы (*.rtf)|*.rtf";
+
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        try
+                        {
+                            using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open))
+                            {
+                                TextRange range = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+                                range.Load(fs, DataFormats.Rtf);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Ошибка при загрузке: {ex.Message}");
+
+                        }
+                    }
+                }
             }
         }
     }
